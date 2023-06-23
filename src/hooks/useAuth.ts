@@ -1,34 +1,21 @@
-import   { useState, useEffect, useRef } from "react";
-import Keycloak from "keycloak-js";
+import { useEffect, useRef } from 'react'
+import { useAppSelector } from './useAppSelector'
+import { useAppDispatch } from './useAppDIspatch'
+import { authUser } from '../state/slice/user.slice'
 
-const client = new Keycloak({
-  url: import.meta.env.VITE_KEYCLOAK_URL,
-  realm: import.meta.env.VITE_KEYCLOAK_REALM,
-  clientId: import.meta.env.VITE_KEYCLOAK_CLIENT,
-});
+type UseAuthReturnType = [boolean, string | undefined]
 
-type UseAuthReturnType = [boolean,string|undefined]
-
-const useAuth = (): UseAuthReturnType=> {
-  const isRun = useRef<boolean>(false);
-  const [token, setToken] = useState<string>();
-  const [isLogin, setLogin] = useState<boolean>(false);
-
+const useAuth = (): UseAuthReturnType => {
+  const isRun = useRef<boolean>(false)
+  const { isLogin, token } = useAppSelector((state) => state.userState)
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    if (isRun.current) return;
+    if (isRun.current) return
+    isRun.current = true
+    dispatch(authUser())
+  }, [dispatch])
 
-    isRun.current = true;
-    client
-      .init({
-        onLoad: "login-required",
-      })
-      .then((res) => {
-        setLogin(res);
-        setToken(client.token);
-      });
-  }, []);
+  return [isLogin, token]
+}
 
-  return [isLogin, token];
-};
-
-export default useAuth;
+export default useAuth
