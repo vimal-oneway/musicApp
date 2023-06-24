@@ -4,12 +4,14 @@ import userReducer from './slice/user.slice'
 import musicReducer from './slice/music.slice'
 import favouriteReducer from './slice/favourite.slice'
 import playlistReducer from './slice/playlist.slice'
+import dialogReducer from './slice/dialog.slice'
 
 const reducer = combineReducers({
   userState: userReducer,
   favouriteState: favouriteReducer,
   musicState: musicReducer,
-  playlistState:playlistReducer
+  playlistState:playlistReducer,
+  dialogState:dialogReducer
 })
 
 export const store = configureStore({

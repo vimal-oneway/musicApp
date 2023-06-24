@@ -1,19 +1,15 @@
-import { useEffect } from 'react'
 import { ImageContainer } from '../../components/ImageContainer/ImageContainer'
 import { Layout } from '../../components/Layout/Layout'
-import { useMusic } from '../../hooks/useMusic'
 import { Music } from '../../components/Music/Music'
+import { Favourite } from '../../components/Favourite/Favourite'
+import { PlaylistsContainer } from '../../components/Playlist/PlaylistsContainer/PlaylistsContainer'
 
 export const Home = () => {
-  const [getMusic] = useMusic()
-
-  useEffect(() => {
-    getMusic()
-  }, [getMusic])
-  
   return (
     <Layout>
       <ImageContainer />
+      <Favourite />
+      <PlaylistsContainer />
       <Music />
     </Layout>
   )

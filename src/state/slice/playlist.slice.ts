@@ -11,7 +11,7 @@ import { IPlayListArray, IPlayListState } from '../../types/playlist.type'
 
 const initialState: IPlayListState = {
   loading: false,
-  playlist: JSON.parse(
+  playlists: JSON.parse(
     localStorage.getItem(localStorageKeys.playlist) as string
   ),
   error: false,
@@ -49,7 +49,7 @@ export const addSongToPlaylist = createAsyncThunk<
   }
 >('favourite/addSongToFavourite', async (playlist, thunkApi) => {
   try {
-    localStorage.setItem(localStorageKeys.favourite, JSON.stringify(playlist))
+    localStorage.setItem(localStorageKeys.playlist, JSON.stringify(playlist))
     return playlist
   } catch (error) {
     return thunkApi.rejectWithValue({ error: true })
@@ -66,19 +66,21 @@ function isRejectedAction(action: AnyAction): action is RejectedAction {
 }
 
 export const playlistSlice = createSlice({
-  name: 'music',
+  name: 'playlist',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getPlaylist.fulfilled, (state, action) => {
         state.loading = false
-        state.playlist = action.payload
+        state.playlists = action.payload
         state.error = false
       })
       .addCase(addSongToPlaylist.fulfilled, (state, action) => {
+        console.log(action.payload, 'action payload')
+
         state.loading = false
-        state.playlist = action.payload
+        state.playlists = action.payload
         state.error = false
       })
       .addMatcher(isRejectedAction, (state, action) => {

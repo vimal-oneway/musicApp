@@ -18,3 +18,10 @@ body{
     right: 0;
   }
 }
+
+
+/* Disable scrolling when dialog is open */
+body.dialog-open {
+  overflow: hidden;
+  position: fixed;
+}

@@ -9,7 +9,7 @@ export const Button: FC<IButtonProps> = memo((props) => {
 
   return (
     <button
-      className={`bg-secondary hover:bg-secondary-400 transition-colors duration-75 px-4 py-2 rounded-md ${
+      className={`bg-secondary hover:bg-secondary-400 transition-colors duration-75 px-2 py-1 text-sm md:text-md md:px-4 md:py-2 rounded-md ${
         className && className
       }`}
       onClick={onClick}

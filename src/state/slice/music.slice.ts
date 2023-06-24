@@ -29,12 +29,14 @@ export const getMusicRecommendations = createAsyncThunk<
   'music/recommendations',
   async () => {
     try {
+      console.log("pending recommendations");
       const response = await Api.get('/songs/list-recommendations', {
         params: {
           key: '484129036',
           locale: 'en-US',
         },
       })
+      
       console.log(response.data)
       return response.data.tracks
     } catch (error) {
@@ -73,6 +75,7 @@ export const musicSlice = createSlice({
       .addCase(getMusicRecommendations.fulfilled, (state, action) => {
         state.loading = false
         state.musics = action.payload
+        state.error = false
       })
       .addMatcher(isRejectedAction, (state, action) => {
         state.loading = false

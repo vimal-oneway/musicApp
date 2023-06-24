@@ -42,7 +42,7 @@ export const getFavouriteMusics = createAsyncThunk<
 // * add favourite music tracks to localstorage
 export const addSongToFavourite = createAsyncThunk<
   IMusic[],
-  IMusic[],
+  IMusic,
   {
     state: RootState
     dispatch: AppDispatch
@@ -50,12 +50,53 @@ export const addSongToFavourite = createAsyncThunk<
   }
 >('playlist/addSongToFavourite', async (music, thunkApi) => {
   try {
-    localStorage.setItem(localStorageKeys.favourite, JSON.stringify(music))
-    return music
+    let {musics}  = thunkApi.getState().favouriteState
+
+    if(musics && musics.length !==0){
+      musics = [...musics, music]
+    }else{
+      musics = [music]
+    }
+    
+    localStorage.setItem(
+      localStorageKeys.favourite,
+      JSON.stringify(musics)
+    )
+    return musics
   } catch (error) {
     return thunkApi.rejectWithValue({ error: true })
   }
 })
+
+
+// * delete favourite music tracks to localstorage
+export const deleteSongToFavourite = createAsyncThunk<
+  IMusic[],
+  IMusic,
+  {
+    state: RootState
+    dispatch: AppDispatch
+    rejectValue: RejectedValue
+  }
+>('playlist/deleteSongToFavourite', async (delMuic, thunkApi) => {
+  try {
+    let {musics}  = thunkApi.getState().favouriteState
+
+    if(musics && musics.length !==0){
+      musics = musics.filter((music)=>music.url !== delMuic.url)
+    } 
+    
+    localStorage.setItem(
+      localStorageKeys.favourite,
+      JSON.stringify(musics)
+    )
+
+    return musics
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: true })
+  }
+})
+
 
 /**
  * isRejectedAction type guard function that checks if the action is rejected
@@ -67,7 +108,7 @@ function isRejectedAction(action: AnyAction): action is RejectedAction {
 }
 
 export const favouriteSlice = createSlice({
-  name: 'music',
+  name: 'favourite',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -78,6 +119,11 @@ export const favouriteSlice = createSlice({
         state.error = false
       })
       .addCase(addSongToFavourite.fulfilled, (state, action) => {
+        state.loading = false
+        state.musics = action.payload
+        state.error = false
+      })
+      .addCase(deleteSongToFavourite.fulfilled, (state, action) => {
         state.loading = false
         state.musics = action.payload
         state.error = false

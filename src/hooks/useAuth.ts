@@ -10,10 +10,10 @@ const useAuth = (): UseAuthReturnType => {
   const { isLogin, token } = useAppSelector((state) => state.userState)
   const dispatch = useAppDispatch()
   useEffect(() => {
-    if (isRun.current) return
+    if (isRun.current || isLogin) return
     isRun.current = true
     dispatch(authUser())
-  }, [dispatch])
+  }, [dispatch, isLogin])
 
   return [isLogin, token]
 }

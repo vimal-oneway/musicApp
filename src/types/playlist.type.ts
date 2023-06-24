@@ -10,6 +10,6 @@ export type IPlayListArray = IPLaylist[]
 
 export type IPlayListState = {
   loading: boolean
-  playlist: IPlayListArray
+  playlists: IPlayListArray
   error: boolean
 }

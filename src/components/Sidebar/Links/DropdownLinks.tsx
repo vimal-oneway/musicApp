@@ -10,7 +10,7 @@ type DropdownLinksProps = {
 export const DropdownLinks:FC<DropdownLinksProps> = ({navLinks, setOpen}) => {
   return (
     <section className="w-[100%] relative z-20 text-white">
-      <div className=" absolute top-16 right-0 animate-slide">
+      <div className=" absolute top-1 right-0 animate-slide">
         <div className=" bg-secondary-natural-500 rounded-lg py-2 px-3 mx-auto w-[100%] flex flex-col gap-3">
         {navLinks.map(({ title, path, lightImage }, index) => (
           <nav
