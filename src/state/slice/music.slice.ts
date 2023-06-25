@@ -127,7 +127,9 @@ export const musicSlice = createSlice({
         state.error = false
       })
       .addCase(setToDefault.fulfilled, (state) => {
-        state = initialState
+        state.error = initialState.error
+        state.loading = initialState.loading
+        state.musics = initialState.musics
       })
       .addMatcher(isRejectedAction, (state, action) => {
         state.loading = false

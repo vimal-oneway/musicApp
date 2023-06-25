@@ -9,7 +9,7 @@ export const Favourite = () => {
     const [count,setCount] = useState<number>(6)
   
     return (
-      <div className="pt-10">
+      <div className="pb-10 md:pb-0 pt-10">
         { !musics || musics.length == 0 ? (
           <FavouriteNotFound />
         ) : (

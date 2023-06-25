@@ -74,7 +74,10 @@ export const dialogSlice = createSlice({
         state.errorMessage = action.payload
       })
       .addCase(setDefault.fulfilled, (state) => {
-        state = initialState
+        state.errorMessage = initialState.errorMessage
+        state.music = initialState.music
+        state.name = initialState.name
+        state.open = initialState.open
       })
   },
 })

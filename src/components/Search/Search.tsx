@@ -18,7 +18,7 @@ export const SearchContainer = () => {
           <SearchDropDown />
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mb-10 md:mb-0 mt-10">
         {musics && musics.length > 0 ? (
           <>
             <MuiscContainerTitle
