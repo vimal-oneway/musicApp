@@ -44,6 +44,5 @@ for references:-
 
 
 ## Cerdits
-
-Rest API Provider:- [Shazam-music-api](https://rapidapi.com/apidojo/api/shazam/)
-Auth With Keycloak:- [Keycloak](https://www.keycloak.org/)
+* Rest API Provider:- [Shazam-music-api](https://rapidapi.com/apidojo/api/shazam/)
+* Auth With Keycloak:- [Keycloak](https://www.keycloak.org/)
