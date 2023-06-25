@@ -30,8 +30,9 @@ npm i typescript
 npm run dev
 ````
 3 For `build` the web app 
+````
 npm run build
-
+````
 ___
 
 ###  Server
