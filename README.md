@@ -1,7 +1,7 @@
 # Music app
 ![localhost_5173_ (6)](https://github.com/vimal-oneway/musicApp/assets/90978643/b4344e92-4cbd-4486-bf8a-3fbfec3c91bf)
 
-
+I posted screenshots in screenshots dir [open screenshots](https://github.com/vimal-oneway/musicApp/tree/main/screenshots)
 
 ## Features
  * Playlists
