@@ -1,17 +1,20 @@
 import { Dispatch, FC, SetStateAction } from "react"
+import { useNavigate } from "react-router-dom"
 
 type HamburgerProps = {
     setOpen: Dispatch<SetStateAction<boolean>>
     open:boolean
 }
 export const Hamburger : FC<HamburgerProps> = ({setOpen, open}) => {
+  const naviigate = useNavigate()
   return (
-    <section className="flex justify-between w-[100%] md:hidden items-center px-8 py-3 bg-secondary-natural-500 z-[100]">
+    <section className="flex justify-between w-[100%] md:hidden items-center px-8 py-3 bg-secondary-natural-500 z-[20] fixed">
         <img
           src="https://res.cloudinary.com/dd39ktpmz/image/upload/v1687512742/qctxpdqganvo4i1cnfqi.png"
           alt="Logo"
           width={50}
           height={50}
+          onClick={() => {naviigate('/home')}}
         />
         <div>
           <div

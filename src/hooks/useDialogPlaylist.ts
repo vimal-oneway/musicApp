@@ -36,6 +36,7 @@ export const useDialogPlaylist = () => {
     }
 
     let updatedPlaylists = playlists
+    let isFound = false
 
     // * create a new Playlist
     const uuid = uuidv4()
@@ -53,19 +54,22 @@ export const useDialogPlaylist = () => {
     }
 
     // * checks if is exist already
-    const isExitIndex = playlists.findIndex(
-      (playlist) =>
-        playlist.name.toLocaleLowerCase() === name.toLocaleLowerCase()
-    )
-
-    // * is exist update or create playlist
-    if (isExitIndex == -1) {
-      updatedPlaylists = [...updatedPlaylists, playlist]
-    } else {
-      updatedPlaylists[isExitIndex] = {
-        ...updatedPlaylists[isExitIndex],
-        tracks: [...updatedPlaylists[isExitIndex].tracks, music],
+    // * is found update it
+    updatedPlaylists = playlists.map((playlist) => {
+      if (playlist.name.toLocaleLowerCase() === name.toLocaleLowerCase()) {
+        isFound = true
+        const musics = [...playlist.tracks, music]
+        return {
+          ...playlist,
+          tracks: musics,
+        }
       }
+      return playlist
+    })
+
+    // * is not found create it
+    if (!isFound) {
+      updatedPlaylists = [...updatedPlaylists, playlist]
     }
 
     dispatch(addSongToPlaylist(updatedPlaylists))
@@ -82,7 +86,9 @@ export const useDialogPlaylist = () => {
         playlists[index].tracks.length == 1 &&
         playlists[index].tracks[0].url === url
       ) {
-        const updatedPlaylists = playlists.filter((playlist)=>playlist.id !==id)
+        const updatedPlaylists = playlists.filter(
+          (playlist) => playlist.id !== id
+        )
         dispatch(addSongToPlaylist(updatedPlaylists))
         return
       }

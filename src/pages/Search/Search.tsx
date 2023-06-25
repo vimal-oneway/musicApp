@@ -1,5 +1,10 @@
+import { Layout } from '../../components/Layout/Layout'
+import { SearchContainer } from '../../components/Search/Search'
+
 export const Search = () => {
   return (
-    <div>Search</div>
+    <Layout>
+      <SearchContainer />
+    </Layout>
   )
 }

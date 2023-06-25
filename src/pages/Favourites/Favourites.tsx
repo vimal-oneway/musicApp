@@ -1,3 +1,10 @@
+import { Favourite } from "../../components/Favourite/Favourite"
+import { Layout } from "../../components/Layout/Layout"
+
 export const Favourites = () => {
-  return <div>Favourites</div>
+  return (
+    <Layout>
+      <Favourite/>
+    </Layout>
+  )
 }

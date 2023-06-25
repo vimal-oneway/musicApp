@@ -22,8 +22,8 @@ export const InfoCard: React.FC<InfoCardProps> = ({
         />
       </div>
       <div className="w-[50%]">
-        <h4 className="text-md font-semibold">{title}</h4>
-        <p className="text-sm">{subtitle}</p>
+        <h4 className="text-md font-semibold">{`${title.slice(0,15)}...`}</h4>
+        <p className="text-sm text-gray-300 lowercase">{subtitle}</p>
       </div>
     </section>
   )

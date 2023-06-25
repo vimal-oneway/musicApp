@@ -3,19 +3,19 @@ import { NavLink } from 'react-router-dom'
 import { NavLinks } from '../Sidebar'
 
 type SidebarLinksProps = {
-    navLinks:NavLinks
+  navLinks: NavLinks
 }
 
-export const SidebarLinks : FC<SidebarLinksProps> = ({navLinks}) => {
+export const SidebarLinks: FC<SidebarLinksProps> = ({ navLinks }) => {
   return (
     <section className="flex flex-col min-h-[70dvh] justify-between items-center">
-      <div className="flex flex-col items-center">
+      <NavLink to={'/home'} className="flex flex-col items-center">
         <img
           src="https://res.cloudinary.com/dd39ktpmz/image/upload/v1687512742/qctxpdqganvo4i1cnfqi.png"
           alt="Logo"
         />
         <h4 className="text-white font-bold text-2xl">Music app</h4>
-      </div>
+      </NavLink>
       <div className="flex flex-col gap-3 w-[90%]">
         {navLinks.map(({ title, path, image }, index) => (
           <nav

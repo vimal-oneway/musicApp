@@ -8,7 +8,7 @@ export type NavLinks = { title: string; path: string; image: string ; lightImage
 const SidebarNavLinks: NavLinks = [
   {
     title: 'Home',
-    path: '/',
+    path: '/home',
     image: 'https://img.icons8.com/sf-black-filled/64/home-page.png',
     lightImage: 'https://res.cloudinary.com/dd39ktpmz/image/upload/v1687527953/tzmdmo590e8v1wtjt9hm.png'
   },
@@ -19,8 +19,8 @@ const SidebarNavLinks: NavLinks = [
     lightImage:'https://res.cloudinary.com/dd39ktpmz/image/upload/v1687527879/lxa7knfzzgjtdxandsdl.png'
   },
   {
-    title: 'Playlist',
-    path: '/playlist',
+    title: 'Playlists',
+    path: '/playlists',
     image: 'https://img.icons8.com/sf-black/64/playlist.png',
     lightImage:'https://res.cloudinary.com/dd39ktpmz/image/upload/v1687527518/q7wvoubj9n9xfhgqqohi.png'
   },
@@ -35,7 +35,7 @@ const SidebarNavLinks: NavLinks = [
 export const Sidebar = () => {
   const [open, setOpen] = useState(false)
   return (
-    <div className="md:flex items-start h-full md:min-h-[100dvh] md:bg-secondary rounded-r-lg fixed w-[100%] md:w-[25%] lg:w-[20%] xl:w-[15%] 2xl:w-[10%]">
+    <div className="md:flex items-start h-full md:min-h-[100dvh] md:bg-secondary rounded-r-lg md:fixed w-[100%] md:w-[25%] lg:w-[20%] xl:w-[15%] 2xl:w-[10%]">
       <Hamburger setOpen={setOpen} open={open} />
       <>
         <div className="hidden md:block">

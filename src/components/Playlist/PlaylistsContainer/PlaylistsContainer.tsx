@@ -2,8 +2,13 @@ import { FC } from 'react'
 import { useAppSelector } from '../../../hooks/useAppSelector'
 import { PlaylistCard } from '../PlaylistCard/PlaylistCard'
 import { PlaylistsNotFound } from '../PlaylistsNotFound/PlaylistsNotFound'
+import { IPlayListArray } from '../../../types/playlist.type'
 
-export const PlaylistsContainer: FC = () => {
+type Props = {
+  givenPlaylists?: IPlayListArray
+}
+
+export const PlaylistsContainer: FC<Props> = ({ givenPlaylists }) => {
   const { playlists } = useAppSelector((state) => state.playlistState)
 
   return (
@@ -17,11 +22,16 @@ export const PlaylistsContainer: FC = () => {
               <h4 className="text-xl font-semibold md:text-3xl">Playlists</h4>
             </div>
           </section>
-          <div className="flex justify-center items-center flex-wrap gap-7 transition-all duration-100 mt-5">
+          <div className="flex justify-center items-center flex-wrap gap-7 transition-all duration-100 mt-5 z-0">
             {playlists &&
-              playlists.map((playlist, i) => (
-                <PlaylistCard playlist={playlist} key={`${i}-${playlist.id}`} />
-              ))}
+              (givenPlaylists ? givenPlaylists : playlists).map(
+                (playlist, i) => (
+                  <PlaylistCard
+                    playlist={playlist}
+                    key={`${i}-${playlist.id}`}
+                  />
+                )
+              )}
           </div>
         </div>
       )}

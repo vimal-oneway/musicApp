@@ -1,7 +1,10 @@
-import React from 'react'
+import { Layout } from '../../components/Layout/Layout'
+import { PlaylistsContainer } from '../../components/Playlist/PlaylistsContainer/PlaylistsContainer'
 
 export const Playlists = () => {
   return (
-    <div>Playlists</div>
+    <Layout>
+      <PlaylistsContainer />
+    </Layout>
   )
 }

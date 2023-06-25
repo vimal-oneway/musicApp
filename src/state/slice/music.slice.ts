@@ -7,7 +7,7 @@ import {
 } from '@reduxjs/toolkit'
 import { AppDispatch, RootState } from '../store'
 
-import { IMusic, IMusicsState } from '../../types/musics.types'
+import { IMusic, IMusicsState, ISearchResults } from '../../types/musics.types'
 
 import { Api } from '../../config/axios.conf'
 
@@ -29,15 +29,13 @@ export const getMusicRecommendations = createAsyncThunk<
   'music/recommendations',
   async () => {
     try {
-      console.log("pending recommendations");
       const response = await Api.get('/songs/list-recommendations', {
         params: {
           key: '484129036',
           locale: 'en-US',
         },
       })
-      
-      console.log(response.data)
+
       return response.data.tracks
     } catch (error) {
       console.error(error)
@@ -46,12 +44,58 @@ export const getMusicRecommendations = createAsyncThunk<
   {
     condition: (_, { getState }) => {
       const { musicState } = getState()
-      const { musics, loading } = musicState
-      if (musics.length === 0 && !loading) return true
+      const { musics } = musicState
+      if (musics.length === 0) return true
       return false
     },
   }
 )
+
+// * Get music data related to search value
+export const getSearchResults = createAsyncThunk<
+  IMusic[],
+  string,
+  {
+    state: RootState
+    dispatch: AppDispatch
+    rejectValue: boolean
+  }
+>(
+  'music/getSearchResults',
+  async (search, thunkApi) => {
+    try {
+      const response = await Api.get<ISearchResults>('/search', {
+        params: {
+          term: search,
+          locale: 'en-US',
+          offset: '0',
+          limit: '9',
+        },
+      })
+
+      if (!response.data) return thunkApi.rejectWithValue(true)
+
+      const musicsData: IMusic[] = response.data.tracks.hits.map(
+        (hit) => hit.track
+      )
+
+      return musicsData
+    } catch (error) {
+      return thunkApi.rejectWithValue(true)
+    }
+  },
+  {
+    condition: (_, { getState }) => {
+      const { musics } = getState().musicState
+      if (musics.length === 0) return true
+      return false
+    },
+  }
+)
+
+export const setToDefault = createAsyncThunk('music/setToDefault', async () => {
+  return
+})
 
 interface RejectedAction extends Action {
   payload: boolean
@@ -76,6 +120,14 @@ export const musicSlice = createSlice({
         state.loading = false
         state.musics = action.payload
         state.error = false
+      })
+      .addCase(getSearchResults.fulfilled, (state, action) => {
+        state.loading = false
+        state.musics = action.payload
+        state.error = false
+      })
+      .addCase(setToDefault.fulfilled, (state) => {
+        state = initialState
       })
       .addMatcher(isRejectedAction, (state, action) => {
         state.loading = false

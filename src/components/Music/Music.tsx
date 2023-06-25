@@ -10,10 +10,10 @@ export const Music: FC = () => {
   const {  musics, loading, error} = useMusic()
 
   return (
-    <div className="pt-10">
-      {loading && !error && musics.length == 0 ? (
+    <div className="pb-10">
+      {loading && !error ? (
         <MusicLoading />
-      ) : musics && musics.length == 0 ? (
+      ) : !musics || musics.length == 0 ? (
         <MusicNotFound />
       ) : (
         <>

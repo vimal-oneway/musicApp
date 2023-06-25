@@ -1,20 +1,32 @@
 import { useEffect, useState } from 'react'
 import { useAppSelector } from './useAppSelector'
-import { IPLaylist } from '../types/playlist.type'
+import { IPLaylist, IPlayListArray } from '../types/playlist.type'
 import { useParams } from 'react-router-dom'
 
 export const usePlaylist = ( ) => {
-  const { playlists } = useAppSelector((state) => state.playlistState)
+  const userPlaylists= useAppSelector((state) => state.playlistState).playlists
   const [playlist, setPlaylist] = useState<IPLaylist>()
+  const [playlists, setPlaylists] = useState<IPlayListArray>([])
 
   const {id} = useParams()
 
   useEffect(() => {
-    if (playlists && playlists.length === 0 && id) return
-    const playlistFound = playlists.find((playlist) => playlist.id === id)
-    if (!playlistFound) return
-    setPlaylist(playlistFound)
-  }, [playlists, id])
+    if (userPlaylists && userPlaylists.length === 0 && id) return
+    const updatedPlaylists: IPlayListArray = []
+    let foundPlaylist: IPLaylist | undefined
 
-  return [playlist]
+    userPlaylists.forEach((playlist) => {
+      if (playlist.id === id) {
+        foundPlaylist = playlist
+      } else {
+        updatedPlaylists.push(playlist)
+      }
+    })
+
+    if (!foundPlaylist) return
+    setPlaylists(updatedPlaylists)
+    setPlaylist(foundPlaylist)
+  }, [userPlaylists, id])
+
+  return {playlist, playlists}
 }

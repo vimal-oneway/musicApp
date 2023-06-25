@@ -11,7 +11,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       <div className=" w-[100%] md:w-[25%] lg:w-[20%] xl:w-[15%] 2xl:w-[10%]">
         <Sidebar />
       </div>
-      <div className="w-[100%] md:w-[75%] lg:w-[80%] xl:w-[85%] 2xl:w-[90%]">{children}</div>
+      <div className="w-[100%] md:w-[75%] lg:w-[80%] xl:w-[85%] 2xl:w-[90%] mt-16 md:mt-0">{children}</div>
     </nav>
   )
 }
